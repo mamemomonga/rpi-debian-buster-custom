@@ -3,6 +3,9 @@ DESTDIR=var/$(SPECS_REV)/$(NAME)
 
 all: raspi3 rpi3-mamemo
 
+usaget:
+	@echo "USAGE: make [ raspi3 | rpi3-mamemo ]"
+
 raspi3: image-specs
 raspi3: NAME=rpi3-mamemo
 raspi3: builder
