@@ -1,15 +1,15 @@
 SPECS_REV=$(shell  cd image-specs && git rev-parse --short HEAD )
 DESTDIR=var/$(SPECS_REV)/$(NAME)
 
-all: $(DESTDIR)/raspi3 $(DESTDIR)/rpi3-mamemo
-
-usaget:
+all:
 	@echo "USAGE: make [ raspi3 | rpi3-mamemo ]"
 
+raspi3: $(DESTDIR)/raspi3
 $(DESTDIR)/raspi3: image-specs
 $(DESTDIR)/raspi3: NAME=raspi3
 $(DESTDIR)/raspi3: builder
 
+rpi3-mamemo: $(DESTDIR)/rpi3-mamemo
 $(DESTDIR)/rpi3-mamemo: image-specs
 $(DESTDIR)/rpi3-mamemo: NAME=rpi3-mamemo
 $(DESTDIR)/rpi3-mamemo: builder
