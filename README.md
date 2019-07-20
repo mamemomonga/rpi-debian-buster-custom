@@ -4,7 +4,8 @@
 
 # 事前準備
 
-このプログラムは Debian Buster(AMD64)でないとうまく動作しないと思われます。Debian BusterをVMwareなどにセットアップして実行してください。
+このプログラムは [Debian Buster(AMD64)](https://wiki.debian.org/DebianBuster)でないとうまく動作しないと思われます。
+Debian BusterをVMwareなどにセットアップして実行してください。
 
 sudo コマンドのインストールと、パスワードなしでrootになれるユーザを用意しておきます。
 
@@ -35,7 +36,7 @@ raspi3 の作成
 
 	$ make raspi3
 
-rpi3-maemmo の作成
+rpi3-mamemo の作成
 
 	$ make rpi3-mamemo
 
@@ -45,3 +46,8 @@ rpi3-maemmo の作成
 
 イメージは var/[Raspberry Pi image specsのCommit Hash]/[名前(raspi3もしくはrpi3-mamemo)]/raspi3.img として作成されます。
 
+# 起動後のログイン譲歩
+
+***User: root / Password: なし***
+
+rootユーザでSSHログインするためには、公開鍵の設定が必要です。
