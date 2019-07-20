@@ -1,18 +1,18 @@
 SPECS_REV=$(shell  cd image-specs && git rev-parse --short HEAD )
 DESTDIR=var/$(SPECS_REV)/$(NAME)
 
-all: raspi3 rpi3-mamemo
+all: $(DESTDIR)/raspi3 $(DESTDIR)/rpi3-mamemo
 
 usaget:
 	@echo "USAGE: make [ raspi3 | rpi3-mamemo ]"
 
-raspi3: image-specs
-raspi3: NAME=rpi3-mamemo
-raspi3: builder
+$(DESTDIR)/raspi3: image-specs
+$(DESTDIR)/raspi3: NAME=raspi3
+$(DESTDIR)/raspi3: builder
 
-rpi3-mamemo: image-specs
-rpi3-mamemo: NAME=rpi3-mamemo
-rpi3-mamemo: builder
+$(DESTDIR)/rpi3-mamemo: image-specs
+$(DESTDIR)/rpi3-mamemo: NAME=rpi3-mamemo
+$(DESTDIR)/rpi3-mamemo: builder
 
 builder:
 	mkdir -p $(DESTDIR)
@@ -20,7 +20,8 @@ builder:
 		--rootfs-tarball=../$(DESTDIR)/raspi3.tar.gz \
 		--output ../$(DESTDIR)/raspi3.img \
 		--log stderr ../configs/$(NAME).yaml \
-		| tee $(DESTDIR)/vmdb2.log 2>&1
+		| tee $(DESTDIR)/vmdb2.log 2>&1 || true
+
 	sudo chown -R $(id -u):$(id -g) $(DESTDIR)
 
 image-specs:
