@@ -30,7 +30,6 @@ raspi3.yamlをベースに、以下の改変が行われています。
 * vim, git, wget, curl, ntp の導入
 * ntpはmfeedを参照
 * ウオッチドックタイマー
-* vcgencmd の導入(Ubuntu Bionicのものを使用)
 * OOM Killerが発動したらカーネルパニックを起こしてリブート
 
 ### ウオッチドックタイマー
