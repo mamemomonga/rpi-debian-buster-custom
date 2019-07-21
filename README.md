@@ -59,7 +59,7 @@ raspi3.yamlをベースに、以下の改変が行われています。
 
 images フォルダに現在のイメージが出来ます。
 
-# イメージの作成
+# イメージの作成(Linux)
 
 USB-MicroSDアダプタを刺して、デバイスを確認、この例の場合 /dev/sdd
 
@@ -70,9 +70,11 @@ USB-MicroSDアダプタを刺して、デバイスを確認、この例の場合
 
 	$ sudo dd if=images/debian-buster-rpi-957f6ed6-rpi3-mamemo.img of=/dev/sdd bs=64k oflag=dsync status=progress
 
+macOSやLinuxデスクトップ環境の場合、[Etcher](https://etcher.io/)がおすすめです。
+
 # Raspberry Pi起動後のログイン
 
-***User: root / Password: なし***
+**User: root / Password: なし**
 
 * rootユーザでSSHログインするためには、公開鍵の設定が必要です。
 * 15秒ごとにsoftdogの通知が表示されます。ウザい場合は **systemctl stop softdog** で停止してください。
