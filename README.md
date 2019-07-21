@@ -2,52 +2,22 @@
 
 [Raspberry Pi image specs](https://salsa.debian.org/raspi-team/image-specs) を使用して、Raspberry Pi3 用 Debian Buster arm64イメージを生成します。
 
-# 事前準備
+# ホストマシンに必要なもの
 
-このプログラムは [Debian Buster(AMD64)](https://wiki.debian.org/DebianBuster)でないとうまく動作しないと思われます。
-Debian BusterをVMwareなどにセットアップして実行してください。
+Docker, Bash
 
-sudo コマンドのインストールと、パスワードなしでrootになれるユーザを用意しておきます。
+コンテナ内部でdevice mapperを使用するため、privileged権限を使用します。
 
-ここではそのユーザを debianとする。以下のコマンドを root権限で実行します。
+# 実行
 
-	# bash -xeu << 'END_OF_SNIPPET'
-	NEW_USER=debian
-	apt-get install -y sudo
-	cat > /etc/sudoers.d/wheel_user << EOS
-	$NEW_USER ALL=(ALL) NOPASSWD:ALL
-	EOS
-	chmod 600 /etc/sudoers.d/wheel_user
-	END_OF_SNIPPET
+	$ ./run.sh raspi3
+	$ ./run.sh rpi3-mamemo
 
-gitとmakeをインストール
+images フォルダに現在のイメージが出来ます。
 
-	# sudo apt install git
-
-ここからは上記に設定したユーザ(この例では debian)で実行
-
-	$ git clone https://github.com/mamemomonga/rpi-debian-buster-custom
-	$ cd rpi-debian-buster-custom
-	$ make apt
-
-# イメージの作成
-
-raspi3 の作成
-
-	$ make raspi3
-
-rpi3-mamemo の作成
-
-	$ make rpi3-mamemo
-
-すべて作成
-
-	$ make
-
-イメージは var/[Raspberry Pi image specsのCommit Hash]/[名前(raspi3もしくはrpi3-mamemo)]/raspi3.img として作成されます。
-
-# 起動後のログイン譲歩
+# Raspberry Pi起動後のログイン
 
 ***User: root / Password: なし***
 
 rootユーザでSSHログインするためには、公開鍵の設定が必要です。
+
