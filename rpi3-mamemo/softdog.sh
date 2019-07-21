@@ -7,12 +7,12 @@ do_trap() {
 trap do_trap HUP INT QUIT KILL TERM CONT STOP
 
 rmmod softdog || true
-modprobe softdog soft_margin=60
+modprobe softdog soft_margin=120
 echo 'none' > /sys/class/leds/ACT/trigger
 echo "START SOFTDOG"
 
 while true; do
-	for i in {1..5}; do
+	for i in {1..15}; do
 		echo 1 > /sys/class/leds/ACT/brightness
 		sleep 0.5
 		echo 0 > /sys/class/leds/ACT/brightness

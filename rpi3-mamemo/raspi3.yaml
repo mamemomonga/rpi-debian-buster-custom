@@ -156,14 +156,21 @@ steps:
   - chroot: /
     shell: |
       # vcgencmd
-      curl -o /tmp/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb \
+      wget -o /tmp/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb \
         https://launchpad.net/~ubuntu-raspi2/+archive/ubuntu/ppa/+files/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb
-      curl -o libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb \
+      wget -o libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb \
         /tmp/libraspberry https://launchpad.net/~ubuntu-raspi2/+archive/ubuntu/ppa/+files/libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb
       dpkg -i /tmp/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb
       dpkg -i /tmp/libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb
       rm -f /tmp/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb
       rm -f /tmp/libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb
+
+  - chroot: /
+    shell: |
+      # OOM Killer -> Panic -> Reboot
+      echo "vm.overcommit_memory=1" >> /etc/sysctl.conf
+      echo "vm.panic_on_oom=1" >> /etc/sysctl.conf
+      echo "kernel.panic=10" >> /etc/sysctl.conf
 
   # Clean up archive cache (likely not useful) and lists (likely outdated) to
   # reduce image size by several hundred megabytes.

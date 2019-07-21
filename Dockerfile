@@ -14,6 +14,8 @@ RUN set -xe && \
 		sudo ca-certificates && \
 	rm -rf /var/lib/apt/lists/*
 
+# https://salsa.debian.org/raspi-team/image-specsを確認し
+# 対象のHASHに書き換える
 ENV IMAGE_SPECS=957f6ed6
 
 RUN set -xe && \
