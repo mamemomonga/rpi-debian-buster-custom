@@ -80,12 +80,14 @@ steps:
     # - wpasupplicant
     - raspi3-firmware
     - linux-image-arm64
+    - tzdata
+    - locales
     - vim
     - sudo
     - git-core
     - curl
     - wget
-    - tzdata
+    - ntp
     tag: /
     unless: rootfs_unpacked
 
@@ -117,37 +119,43 @@ steps:
       mkdir -p "${ROOT?}/etc/systemd/system/multi-user.target.requires/"
       ln -s /etc/systemd/system/rpi-generate-ssh-host-keys.service "${ROOT?}/etc/systemd/system/multi-user.target.requires/rpi-generate-ssh-host-keys.service"
       rm -f ${ROOT?}/etc/ssh/ssh_host_*_key*
+    root-fs: /
 
+  - shell: |
       mkdir -p "${ROOT?}/etc/iptables"
       touch "${ROOT?}/etc/iptables/rules.v4"
       touch "${ROOT?}/etc/iptables/rules.v6"
       echo "gpu_mem=16" >> "${ROOT?}/boot/firmware/config.txt"
-
+      install -m 644 -o root -g root ../app/rpi3-mamemo/vimrc.local     "${ROOT?}/etc/vim/vimrc.local"
+      install -m 644 -o root -g root ../app/rpi3-mamemo/ntp.conf        "${ROOT?}/etc/ntp.conf"
+      install -m 755 -o root -g root ../app/rpi3-mamemo/softdog.sh      "${ROOT?}/usr/local/sbin/softdog.sh"
+      install -m 644 -o root -g root ../app/rpi3-mamemo/softdog.service "${ROOT?}/etc/systemd/system/softdog.service"
+      install -m 600 -o root -g root ../app/rpi3-mamemo/sudoers-debian  "${ROOT?}/etc/sudoers.d/debian"
     root-fs: /
 
   - chroot: /
     shell: |
+      # noatime
+      perl -nlp -i -E 's#ext4 rw#ext4 rw,noatime#g' /etc/fstab
+
+      # localtime
       rm -f /etc/localtime
       ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
       echo 'Asia/Tokyo' > /etc/timezone
 
-      cat > /etc/vim/vimrc.local << 'EOS'
-      syntax on
-      set wildmenu
-      set history=100
-      set number
-      set scrolloff=5
-      set autowrite
-      set tabstop=4
-      set shiftwidth=4
-      set softtabstop=0
-      set termencoding=utf-8
-      set encoding=utf-8
-      set fileencodings=iso-2022-jp,utf-8,cp932,euc-jp,ucs2le,ucs-2
-      set fenc=utf-8
-      set enc=utf-8
-      EOS
+      # locale
+      perl -i -nlpE 's!^# (en_US.UTF-8 UTF-8)!$1!; s!^# (ja_JP.UTF-8 UTF-8)!$1!; ' /etc/locale.gen
+      locale-gen
+      update-locale LANG=en_US.UTF-8
+
       update-alternatives --set editor /usr/bin/vim.basic
+      systemctl enable softdog
+      useradd -m -s /bin/bash debian
+
+      # OOM Killer -> Panic -> Reboot
+      echo "vm.overcommit_memory=1" >> /etc/sysctl.conf
+      echo "vm.panic_on_oom=1" >> /etc/sysctl.conf
+      echo "kernel.panic=10" >> /etc/sysctl.conf
 
   # Clean up archive cache (likely not useful) and lists (likely outdated) to
   # reduce image size by several hundred megabytes.
