@@ -34,10 +34,11 @@ raspi3.yamlをベースに、以下の改変が行われています。
 * eth0が有効になるように調整
 * GPUメモリを16MBに変更
 * 日本時間(JST)に設定
-* vim, git, wget, curl, ntp の導入
+* vim, git, wget, curl, ntp, sudo の導入
 * ntpはmfeedを参照
 * ウオッチドックタイマー
 * OOM Killerが発動したらカーネルパニックを起こしてリブート
+* debianユーザの追加(パスワードなしでsudoでrootになることができます)
 
 ### ウオッチドックタイマー
 
