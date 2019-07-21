@@ -126,7 +126,6 @@ steps:
       touch "${ROOT?}/etc/iptables/rules.v4"
       touch "${ROOT?}/etc/iptables/rules.v6"
       echo "gpu_mem=16" >> "${ROOT?}/boot/firmware/config.txt"
-
       install -m 644 -o root -g root ../app/rpi3-mamemo/vimrc.local     "${ROOT?}/etc/vim/vimrc.local"
       install -m 644 -o root -g root ../app/rpi3-mamemo/ntp.conf        "${ROOT?}/etc/ntp.conf"
       install -m 755 -o root -g root ../app/rpi3-mamemo/softdog.sh      "${ROOT?}/usr/local/sbin/softdog.sh"
@@ -153,8 +152,6 @@ steps:
       systemctl enable softdog
       useradd -m -s /bin/bash debian
 
-  - chroot: /
-    shell: |
       # OOM Killer -> Panic -> Reboot
       echo "vm.overcommit_memory=1" >> /etc/sysctl.conf
       echo "vm.panic_on_oom=1" >> /etc/sysctl.conf
