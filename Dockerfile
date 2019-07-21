@@ -22,7 +22,6 @@ RUN set -xe && \
 	git checkout ${IMAGE_SPECS}
 	
 ADD . /work/app
-
 WORKDIR /work
 ENTRYPOINT ["/work/app/entrypoint.sh"]
 

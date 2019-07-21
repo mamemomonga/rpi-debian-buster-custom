@@ -1,15 +1,15 @@
 #!/bin/bash
 set -eu
 do_trap() {
-	echo "STOP WATCHDOG"
+	echo "STOP SOFTDOG"
 	echo "V" > /dev/watchdog0
 }
-do_trap HUP INT QUIT KILL TERM CONT STOP
+trap do_trap HUP INT QUIT KILL TERM CONT STOP
 
 rmmod softdog || true
-modprobe softdog soft_margin=120
+modprobe softdog soft_margin=60
 echo 'none' > /sys/class/leds/ACT/trigger
-echo "START WATCHDOG"
+echo "START SOFTDOG"
 
 while true; do
 	for i in {1..5}; do
