@@ -14,8 +14,8 @@ RUN set -xe && \
 		sudo ca-certificates && \
 	rm -rf /var/lib/apt/lists/*
 
-# https://salsa.debian.org/raspi-team/image-specs$B$r3NG'$7(B
-# $BBP>]$N(BHASH$B$K=q$-49$($k(B
+# https://salsa.debian.org/raspi-team/image-specsを確認し
+# 必要に応じて対象のHASHに書き換える
 ENV IMAGE_SPECS=957f6ed6
 
 RUN set -xe && \

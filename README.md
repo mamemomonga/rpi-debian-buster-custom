@@ -10,7 +10,7 @@ Docker, Bash
 
 # 設定
 
-[Dockerfile](Dockerfile) の IMAGE\_SPECS を [こちらを確認](https://salsa.debian.org/raspi-team/image-specs)の上、対象とするCommit Hashに書き換えて下さい。
+[Dockerfile](Dockerfile) の IMAGE\_SPECS を [こちらを確認](https://salsa.debian.org/raspi-team/image-specs)の上、必要に応じて対象とするCommit Hashに書き換えて下さい。なお、変更した場合はrpi3-mamemoで不具合が出る場合があります。
 
 # 生成されるイメージ
 
