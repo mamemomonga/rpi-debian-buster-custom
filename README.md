@@ -6,7 +6,7 @@
 
 Docker, Bash
 
-コンテナ内部でdevice mapperを使用するため、privileged権限を使用します。
+コンテナ内部でdevice mapperを使用するため、privileged権限を使用します。Dockerコンテナでの実行であっても重要なサービスを運用するマシンでの利用はお控え下さい。
 
 # 設定
 
@@ -51,6 +51,17 @@ raspi3.yamlをベースに、以下の改変が行われています。
 	$ ./run.sh rpi3-mamemo
 
 images フォルダに現在のイメージが出来ます。
+
+# イメージの作成
+
+USB-MicroSDアダプタを刺して、デバイスを確認、この例の場合 /dev/sdd
+
+	$ lsblk -o NAME,SIZE,VENDOR,MODEL
+	sdd        7.3G BUFFALO  BSCR17TU3_-2
+
+書き込み **/dev/sdd は環境によって違います。間違えるとシステムを破壊しますので必ず確認して下さい。**
+
+	$ sudo dd if=images/debian-buster-rpi-957f6ed6-rpi3-mamemo.img of=/dev/sdd bs=64k oflag=dsync status=progress
 
 # Raspberry Pi起動後のログイン
 
