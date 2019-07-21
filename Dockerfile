@@ -4,13 +4,7 @@ RUN set -xe && \
 	export DEBIAN_FRONTEND=noninteractive && \
 	apt-get update && \
 	apt-get install -y --no-install-recommends \
-		git make vmdb2 parted dosfstools debootstrap qemu-user-static schroot && \
-	rm -rf /var/lib/apt/lists/*
-
-RUN set -xe && \
-	export DEBIAN_FRONTEND=noninteractive && \
-	apt-get update && \
-	apt-get install -y --no-install-recommends \
+		git make vmdb2 parted dosfstools debootstrap qemu-user-static schroot \
 		sudo ca-certificates && \
 	rm -rf /var/lib/apt/lists/*
 
