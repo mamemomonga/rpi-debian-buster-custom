@@ -2,6 +2,8 @@
 
 [Raspberry Pi image specs](https://salsa.debian.org/raspi-team/image-specs) を使用して、Raspberry Pi3 用 Debian Buster arm64イメージを生成します。
 
+こちらで生成されるイメージはまだ開発途中のようで、いくつか問題があるようです。
+
 # ホストマシンに必要なもの
 
 Docker, Bash
@@ -17,6 +19,11 @@ Docker, Bash
 ## raspi3
 
 [image specs](https://salsa.debian.org/raspi-team/image-specs)に含まれる raspi3.yaml をビルドします
+
+### 気付いた問題点
+
+* ACT LEDが点滅しない
+* 初回起動で eth0 が up しない
 
 ## rpi3-mamemo
 
