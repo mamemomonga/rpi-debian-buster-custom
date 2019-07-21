@@ -1,0 +1,11 @@
+[Unit]
+Description = softdog daemon
+
+[Service]
+ExecStart = /usr/local/sbin/softdog.sh
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target
+

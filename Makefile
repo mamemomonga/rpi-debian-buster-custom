@@ -19,9 +19,7 @@ builder:
 	cd image-specs; sudo vmdb2 \
 		--rootfs-tarball=../$(DESTDIR)/raspi3.tar.gz \
 		--output ../$(DESTDIR)/raspi3.img \
-		--log stderr ../configs/$(NAME).yaml \
-		| tee $(DESTDIR)/vmdb2.log 2>&1 || true
-
+		--log stderr ../configs/$(NAME).yaml 2>&1 | tee ../$(DESTDIR)/vmdb2.log
 	sudo chown -R $(id -u):$(id -g) $(DESTDIR)
 
 image-specs:
