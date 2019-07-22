@@ -30,11 +30,12 @@ Docker, Bash
 raspi3.yamlをベースに、以下の改変が行われています。
 
 * ミラーをさくらインターネットに変更
+* fstabオプション変更
 * 無線LAN関連のソフト・ドライバを削除
 * eth0が有効になるように調整
 * GPUメモリを16MBに変更
 * 日本時間(JST)に設定
-* vim, git, wget, curl, ntp, sudo の導入
+* vim, git, wget, curl, ntp, sudo, htop の導入
 * ntpはmfeedを参照
 * ウオッチドックタイマー
 * OOM Killerが発動したらカーネルパニックを起こしてリブート
