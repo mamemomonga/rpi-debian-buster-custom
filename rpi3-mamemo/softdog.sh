@@ -7,7 +7,7 @@ do_trap() {
 trap do_trap HUP INT QUIT KILL TERM CONT STOP
 
 rmmod softdog || true
-modprobe softdog soft_margin=120
+modprobe softdog soft_margin=300
 echo 'none' > /sys/class/leds/ACT/trigger
 echo "START SOFTDOG"
 

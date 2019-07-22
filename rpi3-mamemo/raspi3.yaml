@@ -132,6 +132,11 @@ steps:
       install -m 755 -o root -g root ../app/rpi3-mamemo/softdog.sh      "${ROOT?}/usr/local/sbin/softdog.sh"
       install -m 644 -o root -g root ../app/rpi3-mamemo/softdog.service "${ROOT?}/etc/systemd/system/softdog.service"
       install -m 600 -o root -g root ../app/rpi3-mamemo/sudoers-debian  "${ROOT?}/etc/sudoers.d/debian"
+
+      mkdir -m 0700 -p "${ROOT?}/root/.ssh"
+      if [ -e "../app/authorized_keys" ]; then cp ../app/authorized_keys "${ROOT?}/root/.ssh/authorized_keys"; fi
+      chmod 0600 "${ROOT?}/root/.ssh/authorized_keys"
+
     root-fs: /
 
   - chroot: /
@@ -149,6 +154,7 @@ steps:
       locale-gen
       update-locale LANG=en_US.UTF-8
 
+      # debian
       update-alternatives --set editor /usr/bin/vim.basic
       systemctl enable softdog
       useradd -m -s /bin/bash debian
@@ -157,6 +163,13 @@ steps:
       echo "vm.overcommit_memory=1" >> /etc/sysctl.conf
       echo "vm.panic_on_oom=1" >> /etc/sysctl.conf
       echo "kernel.panic=10" >> /etc/sysctl.conf
+
+  - chroot: /
+    shell: |
+      curl -o /tmp/libraspberrypi0.deb -Ls https://launchpad.net/~ubuntu-raspi2/+archive/ubuntu/ppa/+files/libraspberrypi0_1.20161003.2350bf2-1_arm64.deb
+      curl -o /tmp/libraspberrypibin.deb -Ls https://launchpad.net/~ubuntu-raspi2/+archive/ubuntu/ppa/+files/libraspberrypi-bin_1.20161003.2350bf2-1_arm64.deb
+      dpkg -i /tmp/libraspberrypi0.deb && rm -f /tmp/libraspberrypi0.deb
+      dpkg -i /tmp/libraspberrypibin.deb && rm -f /tmp/libraspberrypibin.deb
 
   # Clean up archive cache (likely not useful) and lists (likely outdated) to
   # reduce image size by several hundred megabytes.
