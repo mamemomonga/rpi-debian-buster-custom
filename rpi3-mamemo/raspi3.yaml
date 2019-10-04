@@ -156,7 +156,7 @@ steps:
 
       # debian
       update-alternatives --set editor /usr/bin/vim.basic
-      systemctl enable softdog
+      # systemctl enable softdog
       useradd -m -s /bin/bash debian
 
       # OOM Killer -> Panic -> Reboot

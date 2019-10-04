@@ -10,7 +10,7 @@ RUN set -xe && \
 
 # https://salsa.debian.org/raspi-team/image-specsを確認し
 # 必要に応じて対象のHASHに書き換える
-ENV IMAGE_SPECS=957f6ed6
+ENV IMAGE_SPECS=d74005dd11a16586343e1129d53e97bf76a677e3
 
 RUN set -xe && \
 	git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git /work/image-specs && \
